@@ -13,5 +13,11 @@ public class Application {
         MemberService memberService = context.getBean(MemberService.class);
         System.out.println("서비스 가져오기 성공: " + memberService);
 
+        // Bonus 2
+        System.out.println("=== 등록된 Bean 목록 ===");
+        String[] beanNames = context.getBeanDefinitionNames();
+        for (String beanName : beanNames) {
+            System.out.println("Bean:" + beanName);
+        }
     }
 }
