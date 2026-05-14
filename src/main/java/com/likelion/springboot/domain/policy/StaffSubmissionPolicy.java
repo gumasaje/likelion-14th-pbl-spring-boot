@@ -1,4 +1,4 @@
-package com.likelion.springboot.policy;
+package com.likelion.springboot.domain.policy;
 
 public class StaffSubmissionPolicy implements SubmissionPolicy {
 

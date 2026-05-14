@@ -1,6 +1,6 @@
 package com.likelion.springboot.repository;
 
-import com.likelion.springboot.role.Role;
+import com.likelion.springboot.domain.role.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

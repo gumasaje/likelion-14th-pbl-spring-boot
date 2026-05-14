@@ -1,7 +1,7 @@
 package com.likelion.springboot.service;
 
 import com.likelion.springboot.repository.MemberRepository;
-import com.likelion.springboot.role.Role;
+import com.likelion.springboot.domain.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
