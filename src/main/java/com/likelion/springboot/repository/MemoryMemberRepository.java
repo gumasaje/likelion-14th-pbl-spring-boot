@@ -1,10 +1,12 @@
 package com.likelion.springboot.repository;
 
 import com.likelion.springboot.role.Role;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private List<Role> members = new ArrayList<>();
 

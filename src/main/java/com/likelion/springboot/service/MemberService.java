@@ -2,12 +2,16 @@ package com.likelion.springboot.service;
 
 import com.likelion.springboot.repository.MemberRepository;
 import com.likelion.springboot.role.Role;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MemberService {
     private final MemberRepository repository;
 
+    // @Autowired
     public MemberService(MemberRepository repository) {
         this.repository = repository;
     }
