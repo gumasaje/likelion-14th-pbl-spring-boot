@@ -5,13 +5,15 @@ import com.likelion.springboot.domain.role.Role;
 import com.likelion.springboot.domain.role.Staff;
 import com.likelion.springboot.dto.*;
 import com.likelion.springboot.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "Member Management", description = "멤버 관리 API")
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -22,6 +24,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @Operation(summary = "Lion 등록", description = "새로운 Lion 멤버를 등록한다.")
     @PostMapping("/lions")
     public ResponseEntity<LionResponse> createLion(@RequestBody LionCreateRequest lionCreateRequest) {
         Role lion = memberService.createLion(lionCreateRequest);
@@ -34,6 +37,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(lionResponse);
     }
 
+    @Operation(summary = "Staff 등록", description = "새로운 Staff 멤버를 등록한다.")
     @PostMapping("/staffs")
     public ResponseEntity<StaffResponse> createStaff(@RequestBody StaffCreateRequest staffCreateRequest) {
         Role staff = memberService.createStaff(staffCreateRequest);
@@ -46,6 +50,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(staffResponse);
     }
 
+    @Operation(summary = "단일 멤버 조회", description = "이름을 통해 특정 멤버의 정보를 조회한다.")
     @GetMapping("/{name}")
     public ResponseEntity<?> getMember(@PathVariable("name") String name) {
         Role member = memberService.searchByName(name);
@@ -61,6 +66,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @Operation(summary = "Lion 수정", description = "기존 Lion 멤버의 정보를 수정한다.")
     @PutMapping("/lions/{name}")
     public ResponseEntity<LionResponse> updateLion(
             @PathVariable("name") String name,
@@ -75,6 +81,7 @@ public class MemberController {
         return ResponseEntity.ok(LionResponse.from((Lion) lion));
     }
 
+    @Operation(summary = "Staff 수정", description = "기존 Staff 멤버의 정보를 수정한다.")
     @PutMapping("/staffs/{name}")
     public ResponseEntity<StaffResponse> updateStaff(
             @PathVariable("name") String name,
@@ -89,6 +96,7 @@ public class MemberController {
         return ResponseEntity.ok(StaffResponse.from((Staff) staff));
     }
 
+    @Operation(summary = "멤버 삭제", description = "이름을 통해 멤버를 삭제한다.")
     @DeleteMapping("/{name}")
     public ResponseEntity<?> deleteMember(@PathVariable("name") String name) {
 
@@ -100,6 +108,7 @@ public class MemberController {
     }
 
     // Bonus 1
+    @Operation(summary = "전체 멤버 조회", description = "등록된 모든 멤버 목록을 조회한다.")
     @GetMapping
     public ResponseEntity<List<?>> getMembers() {
         return ResponseEntity.ok(
@@ -114,6 +123,7 @@ public class MemberController {
     }
 
     // Bonus 2
+    @Operation(summary = "멤버 검색", description = "이름 쿼리 파라미터를 통해 멤버를 검색한다.")
     @GetMapping("/search")
     public ResponseEntity<?> searchByName(@RequestParam String name) {
         Role member = memberService.searchByName(name);
