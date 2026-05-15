@@ -1,6 +1,6 @@
 package com.likelion.springboot.repository;
 
-import com.likelion.springboot.role.Role;
+import com.likelion.springboot.domain.role.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -38,5 +38,20 @@ public class MemoryMemberRepository implements MemberRepository {
             }
         }
         return false;
+    }
+
+    @Override
+    public void updateByName(String name, Role member) {
+        for (int i = 0; i < members.size(); i++) {
+            if (members.get(i).getName().equals(name)) {
+                members.set(i, member);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteByName(String name) {
+        return members.removeIf(member -> member.getName().equals(name));
     }
 }

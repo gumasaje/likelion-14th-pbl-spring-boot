@@ -1,6 +1,6 @@
 package com.likelion.springboot.repository;
 
-import com.likelion.springboot.role.Role;
+import com.likelion.springboot.domain.role.Role;
 
 import java.util.List;
 
@@ -12,4 +12,8 @@ public interface MemberRepository {
     List<Role> findAll();
 
     boolean existsByName(String name);
+
+    void updateByName(String name, Role member);
+
+    boolean deleteByName(String name);
 }

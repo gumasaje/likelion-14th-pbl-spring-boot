@@ -1,7 +1,7 @@
-package com.likelion.springboot.role;
+package com.likelion.springboot.domain.role;
 
-import com.likelion.springboot.policy.LionSubmissionPolicy;
-import com.likelion.springboot.policy.SubmissionPolicy;
+import com.likelion.springboot.domain.policy.LionSubmissionPolicy;
+import com.likelion.springboot.domain.policy.SubmissionPolicy;
 
 public class Lion extends Role {
     private String studentId;
