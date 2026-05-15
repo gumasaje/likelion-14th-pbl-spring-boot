@@ -10,10 +10,7 @@ import com.likelion.springboot.dto.StaffResponse;
 import com.likelion.springboot.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/members")
@@ -47,6 +44,21 @@ public class MemberController {
 
         StaffResponse staffResponse = StaffResponse.from((Staff) staff);
         return ResponseEntity.status(HttpStatus.CREATED).body(staffResponse);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<?> getMember(@PathVariable("name") String name) {
+        Role member = memberService.searchByName(name);
+
+        if (member instanceof Lion lion) {
+            return ResponseEntity.status(HttpStatus.OK).body(LionResponse.from((Lion) lion));
+        }
+
+        if (member instanceof Staff staff) {
+            return ResponseEntity.status(HttpStatus.OK).body(StaffResponse.from((Staff) staff));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }
