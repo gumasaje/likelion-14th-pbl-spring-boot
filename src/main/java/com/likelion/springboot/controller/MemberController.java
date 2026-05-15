@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -94,6 +97,20 @@ public class MemberController {
         }
 
         return ResponseEntity.noContent().build();
+    }
+
+    // Bonus 1
+    @GetMapping
+    public ResponseEntity<List<?>> getMembers() {
+        return ResponseEntity.ok(
+                memberService.getAllMembers().stream()
+                        .map(member -> {
+                            if (member instanceof Lion lion) return LionResponse.from((Lion) lion);
+                            if (member instanceof Staff staff) return StaffResponse.from((Staff) staff);
+                            return null;
+                        })
+                        .toList()
+        );
     }
 
 }
