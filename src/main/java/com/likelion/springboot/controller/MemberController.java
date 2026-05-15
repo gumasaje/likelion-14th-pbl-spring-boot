@@ -113,4 +113,15 @@ public class MemberController {
         );
     }
 
+    // Bonus 2
+    @GetMapping("/search")
+    public ResponseEntity<?> searchByName(@RequestParam String name) {
+        Role member = memberService.searchByName(name);
+
+        if (member instanceof Lion lion) return ResponseEntity.ok(LionResponse.from((Lion) lion));
+        if (member instanceof Staff staff) return ResponseEntity.ok(StaffResponse.from((Staff) staff));
+
+        return ResponseEntity.notFound().build();
+    }
+
 }
