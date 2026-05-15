@@ -86,4 +86,14 @@ public class MemberController {
         return ResponseEntity.ok(StaffResponse.from((Staff) staff));
     }
 
+    @DeleteMapping("/{name}")
+    public ResponseEntity<?> deleteMember(@PathVariable("name") String name) {
+
+        if (!memberService.deleteMember(name)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
