@@ -3,10 +3,7 @@ package com.likelion.springboot.controller;
 import com.likelion.springboot.domain.role.Lion;
 import com.likelion.springboot.domain.role.Role;
 import com.likelion.springboot.domain.role.Staff;
-import com.likelion.springboot.dto.LionCreateRequest;
-import com.likelion.springboot.dto.LionResponse;
-import com.likelion.springboot.dto.StaffCreateRequest;
-import com.likelion.springboot.dto.StaffResponse;
+import com.likelion.springboot.dto.*;
 import com.likelion.springboot.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +56,34 @@ public class MemberController {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/lions/{name}")
+    public ResponseEntity<LionResponse> updateLion(
+            @PathVariable("name") String name,
+            @RequestBody LionUpdateRequest lionUpdateRequest
+    ) {
+        Role lion = memberService.updateLion(name, lionUpdateRequest);
+
+        if (lion == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(LionResponse.from((Lion) lion));
+    }
+
+    @PutMapping("/staffs/{name}")
+    public ResponseEntity<StaffResponse> updateStaff(
+            @PathVariable("name") String name,
+            @RequestBody StaffUpdateRequest staffUpdateRequest
+    ) {
+        Role staff = memberService.updateStaff(name, staffUpdateRequest);
+
+        if (staff == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(StaffResponse.from((Staff) staff));
     }
 
 }
